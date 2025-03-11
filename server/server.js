@@ -30,26 +30,32 @@ const combatManager = new CombatManager(io, roomManager);
 // Socket.io connection handling
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`);
-  
+
   // Handle player joining
   socket.on('join', (data) => {
     const { username, roomId } = data;
     roomManager.joinRoom(socket, username, roomId);
   });
-  
+
   // Combat-related events
   socket.on('initiateCombat', (data) => {
     combatManager.initiateCombat(socket, data);
   });
-  
+
   socket.on('combatAction', (data) => {
     combatManager.handleAction(socket, data);
   });
-  
+
   // Disconnect event
   socket.on('disconnect', () => {
     console.log(`User disconnected: ${socket.id}`);
     roomManager.leaveRooms(socket);
+  });
+
+  // In server/server.js, add this to the socket.io connection handler
+  socket.on('registerPlayer', (data) => {
+    console.log(`Player registered with socket ID: ${data.socketId}`);
+    socket.clientId = data.socketId; // Store in socket object for reference
   });
 });
 

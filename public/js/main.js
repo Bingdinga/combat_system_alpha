@@ -21,6 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize socket connection
   const socket = new Socket();
 
+  socket.on('connect', () => {
+    console.log('Connected to socket server with ID:', socket.id);
+  });
+
   // Initialize combat manager
   const combatManager = new CombatManager(socket);
 
@@ -44,6 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Please enter both username and room ID');
       return;
     }
+
+    // Store username in localStorage for reference
+    localStorage.setItem('username', username);
 
     // Join the room
     socket.emit('join', { username, roomId });
@@ -121,7 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
     gameContainer.classList.add('hidden');
     combatContainer.classList.remove('hidden');
 
-    // Initialize combat UI with combat data
+    // Make sure to pass the combat data to the combat manager
+    combatManager.initializeCombat(data);
+
+    // Then initialize the combat UI with the same data
     combatUI.initializeCombat(data);
   });
 
