@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combat System Alpha</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Combat System Alpha</h1>
+
+        <!-- Update the join form in index.html -->
+        <div id="joinForm" class="join-form">
+            <h2>Join a Room</h2>
+            <form id="roomJoinForm">
+                <div class="form-group">
+                    <label for="usernameInput">Username:</label>
+                    <input type="text" id="usernameInput" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="roomIdInput">Room ID:</label>
+                    <input type="text" id="roomIdInput" placeholder="Enter room ID">
+                </div>
+                <button type="submit" class="join-btn">Join Room</button>
+            </form>
+        </div>
+
+        <!-- Game Container (Room Lobby) -->
+        <div id="gameContainer" class="game-container hidden">
+            <div class="room-header">
+                <h2 id="roomHeader">Room: </h2>
+                <div id="playerName">Player: </div>
+            </div>
+
+            <div class="players-container">
+                <h3>Players in Room</h3>
+                <div id="playerList" class="player-list"></div>
+            </div>
+
+            <div class="actions-panel">
+                <button id="startCombatBtn" class="action-btn" disabled>Start Combat</button>
+            </div>
+        </div>
+
+        <!-- Combat Container -->
+        <div id="combatContainer" class="combat-container hidden">
+            <!-- Combat UI will be dynamically populated by CombatUI.js -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
